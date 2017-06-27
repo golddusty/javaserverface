@@ -1,0 +1,87 @@
+<table class="tablebg" width="100%">
+  <tr>
+    <td>
+      <h:dataTable value="#{reportHandler.sortedReportsModel}" var="report"
+        rows="#{reportHandler.noOfRows}" 
+        first="#{reportHandler.firstRowIndex}" 
+        styleClass="tablebg"  rowClasses="oddRow, evenRow" 
+        columnClasses="left, left, left, right, left" width="100%">
+        <h:column>
+          <f:facet name="header">
+            <h:commandLink action="#{reportHandler.sortByTitle}" 
+              immediate="true">
+              <h:outputText value="#{labels.titleHeader}" />
+            </h:commandLink>
+          </f:facet>
+          <h:commandLink action="#{reportHandler.select}"
+            immediate="true">
+            <h:outputText value="#{report.title}" />
+          </h:commandLink>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:commandLink action="#{reportHandler.sortByOwner}" 
+              immediate="true">
+              <h:outputText value="#{labels.ownerHeader}" />
+            </h:commandLink>
+          </f:facet>
+          <h:outputText value="#{report.owner}" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:commandLink action="#{reportHandler.sortByDate}" 
+              immediate="true">
+              <h:outputText value="#{labels.datesHeader}" />
+            </h:commandLink>
+          </f:facet>
+          <h:outputText value="#{report.startDate}">
+            <f:convertDateTime  dateStyle="short" />
+          </h:outputText>
+          <h:outputText value=" - " />
+          <h:outputText value="#{report.endDate}">
+            <f:convertDateTime  dateStyle="short" />
+          </h:outputText>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:commandLink action="#{reportHandler.sortByTotal}" 
+              immediate="true">
+              <h:outputText value="#{labels.totalHeader}" />
+            </h:commandLink>
+          </f:facet>
+          <h:outputText value="#{report.total}">
+            <f:convertNumber pattern="#,##0.00" />
+          </h:outputText>
+        </h:column>
+        <h:column>
+          <f:facet name="header">
+            <h:commandLink action="#{reportHandler.sortByStatus}" 
+              immediate="true">
+              <h:outputText value="#{labels.statusHeader}" />
+            </h:commandLink>
+          </f:facet>
+          <h:outputText value="#{labels[statusStrings[report.status]]}"/>
+        </h:column>
+      </h:dataTable>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h:commandButton value="<<" 
+        disabled="#{reportHandler.scrollFirstDisabled}" 
+        action="#{reportHandler.scrollFirst}" />
+      <h:commandButton value="<" 
+        disabled="#{reportHandler.scrollPreviousDisabled}" 
+        action="#{reportHandler.scrollPrevious}" />
+      <h:commandButton value=">" 
+        disabled="#{reportHandler.scrollNextDisabled}" 
+        action="#{reportHandler.scrollNext}" />
+      <h:commandButton value=">>" 
+        disabled="#{reportHandler.scrollLastDisabled}" 
+        action="#{reportHandler.scrollLast}" />
+      <h:outputText value="#{labels.rowsPerPageLabel}" />
+      <h:inputText value="#{reportHandler.noOfRows}" size="3" />
+      <h:commandButton value="#{labels.refreshButtonLabel}" />
+    </td>
+  </tr>
+</table>

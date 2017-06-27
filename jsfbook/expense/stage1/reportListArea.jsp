@@ -1,0 +1,50 @@
+<%@ page contentType="text/html" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+
+<f:view>
+  <h:form>
+    <h:dataTable value="#{reportHandler.reportsModel}" var="report">
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Title" />
+        </f:facet>
+        <h:commandLink action="#{reportHandler.select}" immediate="true">
+          <h:outputText value="#{report.title}" />
+        </h:commandLink>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Owner" />
+        </f:facet>
+        <h:outputText value="#{report.owner}" />
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Dates" />
+        </f:facet>
+        <h:outputText value="#{report.startDate}">
+          <f:convertDateTime dateStyle="short" />
+        </h:outputText>
+        <h:outputText value=" - " />
+        <h:outputText value="#{report.endDate}">
+          <f:convertDateTime  dateStyle="short" />
+        </h:outputText>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Total" />
+        </f:facet>
+        <h:outputText value="#{report.total}">
+          <f:convertNumber pattern="#,##0.00" />
+        </h:outputText>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="Status" />
+        </f:facet>
+        <h:outputText value="#{statusStrings[report.status]}"/>
+      </h:column>
+    </h:dataTable>
+  </h:form>
+</f:view>

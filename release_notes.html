@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>JavaServer Faces Examples Release Notes</title>
+  </head>
+  <body bgcolor="white">
+    <h1>JavaServer Faces Examples Release Notes</h1>
+    <p>
+      From time to time, I update the examples based on reader feedback
+      about bugs. It's my intention to <i>only</i> update the examples
+      when they do not follow the specifications, as opposed to add
+      work-arounds for specification-compliance bugs in various
+      JSF implementations or web containers, with the possible exception
+      for bugs in the JSF RI. For JSF implementation and container bugs,
+      I instead inform the vendor about the problem, in the hope that 
+      these examples will have a positive impact on spec-compliance over time.
+    </p>
+    <p>
+      <b>Note!</b> The example JAR filenames include the version, i.e.,
+      "1_0_2" for the 1.0.2 version. You must remove the old JAR files
+      when you install the new ones, and restart the web container.
+    </p>
+    <h2>Changes in 1.0.2 compared to the 1.0.1 version</h2>
+    <ul>
+      <li>
+        The BarRenderer didn't respect the rule that when the <code>rows</code>
+        property is set to zero, all rows must be rendered. This is fixed
+        in 1.0.2.
+      </li>
+      <li>
+        Fixed a bug in the XMLViewHandler where it didn't suppress template
+        text as it should, and included the root cause when throwing
+        exceptions during template file parsing/rendering.
+      </li>
+    </ul>
+
+    <h2>Changes in 1.0.1 compared to the 1.0 version</h2>
+    <ul>
+      <li>
+        The custom ViewHandler examples failed when using Internet Explorer
+        (at least with IE 5 and 6) due to a bug in the JSF RI implementation
+        of the RenderKit createResponseWriter() method, which doesn't
+        accept "*/*" or "text/*" as valid replacements for "text/html" in
+        the content type list (which corresponds to the Accept request
+        header). I've added a work-around for this bug in the 
+        com.mycompany.jsf.pl.ClassViewHandler class and reported the
+        bug to the JSF RI team.
+      </li>
+    </ul>
+  </body>
+</html>

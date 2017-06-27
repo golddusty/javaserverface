@@ -1,0 +1,35 @@
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td>
+      <h:commandButton value="#{labels.newButtonLabel}" 
+        disabled="#{reportHandler.newDisabled}"
+        action="#{reportHandler.create}" /> 
+      <h:commandButton value="#{labels.deleteButtonLabel}" 
+        disabled="#{reportHandler.deleteDisabled}"
+        action="#{reportHandler.delete}" />
+      <h:commandButton value="#{labels.submitButtonLabel}" 
+        disabled="#{reportHandler.submitDisabled}"
+        action="#{reportHandler.submit}" />
+      <h:commandButton value="#{labels.acceptButtonLabel}" 
+        rendered="#{reportHandler.acceptRendered}"
+        disabled="#{reportHandler.acceptDisabled}"
+        action="#{reportHandler.accept}" />
+      <h:commandButton value="#{labels.rejectButtonLabel}" 
+        rendered="#{reportHandler.rejectRendered}"
+        disabled="#{reportHandler.rejectDisabled}"
+        action="#{reportHandler.reject}" />
+    </td>
+    <td align="right">
+      <span class="small">
+        <h:outputText value="#{labels.loggedInAs}" />
+        "${pageContext.request.remoteUser}"
+        [<h:outputLink value="../../logout.jsp">
+           <h:outputText value="#{labels.logoutLinkLabel}" />
+         </h:outputLink>]
+        [<h:outputLink value="prefs.faces">
+           <h:outputText value="#{labels.prefLinkLabel}" />
+         </h:outputLink>]
+      </span>
+    </td>
+  </tr>
+</table>

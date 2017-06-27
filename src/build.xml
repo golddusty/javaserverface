@@ -1,0 +1,96 @@
+<!--
+  This is a build file for Ant 1.5 that builds all Java code used
+  in the examples.
+  To download and learn how to use Ant, see http://ant.apache.org/
+-->
+<project name="JSFBook" default="dist" basedir=".">
+
+  <!-- Set global properties for this build -->
+  <property name="build" value="build" />
+  <property name="javadoc" value="javadoc" />
+  <property name="dist"  value="dist" />
+  <property name="src" value="src" />
+  <property name="meta" value="meta" />
+
+  <property name="libname" value="custom_jsf_lib_1_0_2" />
+  <property name="othername" value="sample_app_1_0_2" />
+
+  <property name="compile.debug" value="true" />
+  <property name="compile.optimize" value="false" />
+  <property name="compile.deprecation" value="true" />
+
+<!-- 
+  Adjust the properties below to match the location of these JAR
+  files on your computer. All of these JAR files are needed to
+  compile the example tag library and the servlet example.
+  servlet-api.jar: Bundled with any compliant web container
+  jsp-api.jar: Bundled with any compliant web container (for a
+    Servlet 2.3 container, it's typically the same JAR files as
+    for the Servlet API).
+  jsf-api.jar: Included in the jsfbook/WEB-INF/lib directory and
+    also bundled with any JSF implementation.
+-->
+  <property name="servlet-api.jar" 
+    value="/home/hans/bin/jakarta-tomcat-5.0.18/common/lib/servlet-api.jar" />
+  <property name="jsp-api.jar" 
+    value="/home/hans/bin/jakarta-tomcat-5.0.18/common/lib/jsp-api.jar" />
+  <property name="jsf-api.jar" 
+    value="/home/hans/bin/jsf-1_0/lib/jsf-api.jar" />
+
+  <path id="dependencies">
+    <pathelement location="${servlet-api.jar}" />
+    <pathelement location="${jsp-api.jar}" />
+    <pathelement location="${jsf-api.jar}" />
+  </path>
+
+  <target name="compile">
+    <mkdir dir="${build}/classes" />
+
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}/classes" 
+      debug="${compile.debug}" deprecation="${compile.deprecation}"
+      optimize="${compile.optimize}">
+      <classpath refid="dependencies" />
+    </javac>
+  </target>
+
+  <target name="javadoc" depends="compile">
+    <mkdir dir="${javadoc}" />
+    <javadoc packagenames="com.mycompany.*" sourcepath="${src}"
+      destdir="${javadoc}" private="true" >
+      <classpath refid="dependencies" />
+    </javadoc>
+  </target>
+
+  <target name="dist" depends="javadoc">
+    <!-- Create a JAR file for all generic classes -->
+    <copy todir="${build}/classes/META-INF">
+      <fileset dir="${meta}" />
+    </copy>
+    <mkdir dir="${dist}/lib" />
+    <jar jarfile="${dist}/lib/${libname}.jar" basedir="${build}/classes">
+      <include name="com/mycompany/jsf/**" />
+      <include name="META-INF/**" />
+    </jar>
+
+    <!-- Create JAR file with all other packaged classes -->
+    <jar jarfile="${dist}/lib/${othername}.jar" basedir="${build}/classes">
+      <include name="com/mycompany/**" />
+      <exclude name="com/mycompany/jsf/**" />
+    </jar>
+
+    <!-- Create WEB-INF/classes with support classes -->
+    <copy todir="${dist}/classes">
+      <fileset dir="${build}/classes">
+        <include name="*.class" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="clean">
+    <!-- Delete the build directory trees -->
+    <delete dir="${build}" />
+    <delete dir="${javadoc}" />
+    <delete dir="${dist}" />
+  </target>
+</project>

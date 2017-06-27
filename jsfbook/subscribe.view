@@ -1,0 +1,17 @@
+<view-specification>
+  <component id="form" type="javax.faces.Form">
+    <component id="emailAddr" type="javax.faces.Input" 
+      value="#{subscr.emailAddr}" />
+    <component id="subs" type="javax.faces.SelectMany" 
+      rendererType="javax.faces.Checkbox" value="#{subscr.subscriptionIds}">
+      <component type="javax.faces.SelectItem" itemValue="1" 
+        itemLabel="JSF News" />
+      <component type="javax.faces.SelectItem" itemValue="2" 
+        itemLabel="IT Industry News" />
+      <component type="javax.faces.SelectItem" itemValue="3"
+        itemLabel="Company News" />
+    </component>
+    <component id="save" type="javax.faces.Command" value="Save" 
+      action="#{subscrHandler.saveSubscriber}" />
+  </component>
+</view-specification>

@@ -1,0 +1,85 @@
+<table width="100%">
+  <tr>
+    <td>
+      <!-- Report title -->
+      <table class="tablebg" align="left" width="100%">
+        <tr>
+          <td align="right">
+            <h:outputText value="#{labels.reportTitleLabel}" />
+          </td>
+          <td align="left" width="90%">
+            <h:inputText id="title" size="30" required="true"
+              value="#{reportHandler.currentReport.title}"
+              disabled="#{reportHandler.editDisabled}" />
+          </td>
+          <td>
+            <h:message for="title" />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="tablebg">
+      <!-- Report entry -->
+      <h:outputText styleClass="smalltitle" 
+        value="#{labels.reportEntryLabel}" />
+      <table class="tablebg" align="left" width="100%">
+        <tr>
+          <td align="right">
+            <h:outputText value="#{labels.entryDateLabel}" />
+          </td>
+          <td width="90%">
+            <h:inputText id="date" size="10" required="true"
+              value="#{entryHandler.currentEntry.date}"
+              disabled="#{reportHandler.editDisabled}">
+              <f:convertDateTime  dateStyle="short" />
+            </h:inputText>
+          </td>
+          <td>
+            <h:message for="date" />
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <h:outputText value="#{labels.entryTypeLabel}" />
+          </td>
+          <td>
+            <h:selectOneMenu id="type" required="true"
+              value="#{entryHandler.currentEntry.type}"
+              disabled="#{reportHandler.editDisabled}">
+              <f:selectItems 
+                value="#{entryHandler.i18nChoices}"/>
+            </h:selectOneMenu>
+          </td>
+          <td>
+            <h:message for="type" />
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <h:outputText value="#{labels.entryAmountLabel}" />
+          </td>
+          <td>
+            <h:inputText id="amount" size="10" required="true"
+              value="#{entryHandler.currentEntry.amount}"
+              disabled="#{reportHandler.editDisabled}">
+              <f:convertNumber pattern="##0.00" />
+              <f:validateDoubleRange minimum="1"/>
+            </h:inputText>
+          </td>
+          <td>
+            <h:message for="amount" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h:commandButton value="#{labels.addButtonLabel}" 
+              disabled="#{reportHandler.editDisabled}"
+              action="#{entryHandler.add}" />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

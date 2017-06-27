@@ -1,0 +1,24 @@
+<table class="box" width="100%">
+  <tr>
+    <td>
+      <h:outputText value="#{labels.detailsAreaTitle}"
+        styleClass="smalltitle" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Entry form -->
+      <h:form>
+        <%@ include file="entryFormArea.jspf" %>
+      </h:form>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Entry list -->
+      <h:form>
+        <%@ include file="entryListArea.jspf" %>
+      </h:form>
+    </td>
+  </tr>
+</table>

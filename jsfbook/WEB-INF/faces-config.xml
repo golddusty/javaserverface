@@ -1,0 +1,527 @@
+<?xml version="1.0"?>
+
+<!--
+ Copyright 2003 Sun Microsystems, Inc. All rights reserved.
+ SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+-->
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<faces-config>
+
+  <application>
+    <message-bundle>custMessages</message-bundle>
+    <locale-config>
+      <default-locale>en</default-locale>
+      <supported-locale>sv</supported-locale>
+    </locale-config>
+  </application>
+
+<!--
+  <lifecycle>
+    <phase-listener>
+      com.mycompany.jsf.event.CaptureStatePhaseListener
+    </phase-listener>
+  </lifecycle>
+-->
+
+<!--
+  <application>
+    <view-handler>
+      com.mycompany.jsf.pl.ClassViewHandler
+    </view-handler>
+  </application>
+-->
+<!--
+  <application>
+    <view-handler>
+      com.mycompany.jsf.pl.XMLViewHandler
+    </view-handler>
+  </application>
+-->
+
+  <component>
+    <component-type>
+      com.mycompany.TabLabel
+    </component-type>
+    <component-class>
+      com.mycompany.jsf.component.UITabLabel
+    </component-class>
+  </component>
+
+  <component>
+    <component-type>
+      com.mycompany.Tree
+    </component-type>
+    <component-class>
+      com.mycompany.jsf.component.UITree
+    </component-class>
+  </component>
+
+  <render-kit>
+    <renderer>
+      <component-family>javax.faces.Data</component-family>
+      <renderer-type>com.mycompany.Bar</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.BarRenderer
+      </renderer-class>
+    </renderer>
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>com.mycompany.DatePicker</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.DatePickerRenderer
+      </renderer-class>
+    </renderer>
+    <renderer>
+      <component-family>javax.faces.Panel</component-family>
+      <renderer-type>com.mycompany.Tabbed</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.TabbedRenderer
+      </renderer-class>
+    </renderer>
+    <renderer>
+      <component-family>com.mycompany.Tree</component-family>
+      <renderer-type>com.mycompany.Tree</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.TreeRenderer
+      </renderer-class>
+    </renderer>
+  </render-kit>
+
+  <validator>
+    <validator-id>com.mycompany.jsf.validator.LATER_THAN</validator-id>
+    <validator-class>
+      com.mycompany.jsf.validator.LaterThanValidator
+    </validator-class>
+    <property>
+      <property-name>peerId</property-name>
+      <property-class>java.lang.String</property-class>
+    </property>
+  </validator>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-action>#{reportHandler.select}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage1/entryListArea.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <!-- 
+    Explicit "stay in the same view" rule for the final version
+    to override the global rule for the intermediate stages with
+    two screens.
+  -->
+  <navigation-rule>
+    <from-view-id>/expense/final/reports.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{reportHandler.select}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/final/reports.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage1/prefUser.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage1/prefLang.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage1/prefLang.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/expense/stage1/prefUser.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage1/prefFont.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage1/prefFont.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/expense/stage1/prefLang.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage1/menuArea.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage1/*</from-view-id>
+    <navigation-case>
+      <from-outcome>cancel</from-outcome>
+      <to-view-id>/expense/stage1/menuArea.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <!-- The same rules for stage2 -->
+  <navigation-rule>
+    <from-view-id>/expense/stage2/prefUser.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage2/prefLang.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage2/prefLang.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/expense/stage2/prefUser.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage2/prefFont.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage2/prefFont.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/expense/stage2/prefLang.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/stage2/menuArea.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/stage2/*</from-view-id>
+    <navigation-case>
+      <from-outcome>cancel</from-outcome>
+      <to-view-id>/expense/stage2/menuArea.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/expense/final/prefs.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{userHandler.updateProfile}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/expense/final/reports.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <managed-bean>
+    <managed-bean-name>subscr</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.newsservice.models.Subscriber
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>subscrHandler</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.newsservice.handlers.SubscriberHandler
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>subscriber</property-name>
+      <value>#{subscr}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>poll</managed-bean-name>
+    <managed-bean-class>com.mycompany.poll.PollBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>myBean</managed-bean-name>
+    <managed-bean-class>com.mycompany.beans.MyBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>userProfile</managed-bean-name>
+    <managed-bean-class>com.mycompany.expense.UserProfile</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <description>
+      The expense item types
+    </description>
+    <managed-bean-name>expenseTypes</managed-bean-name>
+    <managed-bean-class>java.util.TreeMap</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <map-entries>
+      <value-class>java.lang.Integer</value-class>
+      <map-entry>
+        <key>Breakfast</key>
+        <value>1</value>
+      </map-entry>
+      <map-entry>
+        <key>Lunch</key>
+        <value>2</value>
+      </map-entry>
+      <map-entry>
+        <key>Dinner</key>
+        <value>3</value>
+      </map-entry>
+      <map-entry>
+        <key>Rental Car</key>
+        <value>4</value>
+      </map-entry>
+      <map-entry>
+        <key>Taxi</key>
+        <value>5</value>
+      </map-entry>
+      <map-entry>
+        <key>Airfare</key>
+        <value>6</value>
+      </map-entry>
+      <map-entry>
+        <key>Lodging</key>
+        <value>7</value>
+      </map-entry>
+    </map-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <description>
+      Special expense item types
+    </description>
+    <managed-bean-name>specialTypes</managed-bean-name>
+    <managed-bean-class>java.util.TreeMap</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <map-entries>
+      <value-class>java.lang.Integer</value-class>
+      <map-entry>
+        <key>Presentation Material</key>
+        <value>100</value>
+      </map-entry>
+      <map-entry>
+        <key>Software</key>
+        <value>101</value>
+      </map-entry>
+      <map-entry>
+        <key>Balloons</key>
+        <value>102</value>
+      </map-entry>
+    </map-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>statusStrings</managed-bean-name>
+    <managed-bean-class>java.util.ArrayList</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <list-entries>
+      <null-value/>
+      <value>Open</value>
+      <value>Submitted</value>
+      <value>Accepted</value>
+      <value>Rejected</value>
+    </list-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <description>
+      Glue bean for user preferences related events
+    </description>
+    <managed-bean-name>userHandler</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.expense.UserHandler
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <description>
+      A registry containing all reports
+    </description>
+    <managed-bean-name>reportRegistry</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.expense.FileReportRegistry
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <description>
+      Glue bean for entry related events and the current entry data
+    </description>
+    <managed-bean-name>entryHandler</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.expense.EntryHandler
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>reportHandler</property-name>
+      <value>#{reportHandler}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>expenseTypes</property-name>
+      <value>#{expenseTypes}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>specialTypes</property-name>
+      <value>#{specialTypes}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <description>
+      Glue bean for report related events and the current report data
+    </description>
+    <managed-bean-name>reportHandler</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.expense.ReportHandler
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>reportRegistry</property-name>
+      <value>#{reportRegistry}</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- Declarations for the converted Struts application -->
+  <managed-bean>
+    <managed-bean-name>employeeRegistry</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.messages.EmployeeRegistryBean
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>dataSource</property-name>
+      <map-entries>
+        <map-entry>
+          <key>hans</key>
+          <value>#{hansEmployeeBean}</value>
+        </map-entry>
+      </map-entries>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>hansEmployeeBean</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.messages.EmployeeBean
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>username</property-name>
+      <value>hans</value>
+    </managed-property>
+    <managed-property>
+      <property-name>password</property-name>
+      <value>secret</value>
+    </managed-property>
+    <managed-property>
+      <property-name>firstName</property-name>
+      <value>Hans</value>
+    </managed-property>
+    <managed-property>
+      <property-name>lastName</property-name>
+      <value>Bergsten</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>newsRegistry</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.messages.NewsBean
+    </managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>authenticateAction</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.messages.AuthenticateAction
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>registry</property-name>
+      <value>#{employeeRegistry}</value>
+    </managed-property>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>/messages/login.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{authenticateAction.authenticate}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/messages/protected/main.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <managed-bean>
+    <managed-bean-name>updateProfileAction</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.messages.UpdateProfileAction
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>registry</property-name>
+      <value>#{employeeRegistry}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>validUser</property-name>
+      <value>#{validUser}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>requestMethod</property-name>
+      <value>#{facesContext.externalContext.request.method}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>storeMsgAction</managed-bean-name>
+    <managed-bean-class>
+      com.mycompany.messages.StoreMsgAction
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>newsBean</property-name>
+      <value>#{newsRegistry}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>validUser</property-name>
+      <value>#{validUser}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>requestMethod</property-name>
+      <value>#{facesContext.externalContext.request.method}</value>
+    </managed-property>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>/messages/protected/entermsg.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{storeMsgAction.store}</from-action>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/messages/protected/main.jsp</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+</faces-config>

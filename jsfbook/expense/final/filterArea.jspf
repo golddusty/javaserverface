@@ -1,0 +1,61 @@
+<table class="tablebg" width="100%">
+  <tr>
+    <td>
+      <table>
+        <tr>                  
+          <td align="right">
+            <h:outputText value="#{labels.fromLabel}" />
+          </td>
+          <td align="left">
+            <h:inputText id="from" size="10" required="true" 
+             value="#{reportHandler.from}">
+             <f:convertDateTime dateStyle="short" />
+            </h:inputText>
+          </td>
+          <td align="right">
+            <h:outputText value="#{labels.toLabel}" />
+          </td>
+          <td align="left">
+            <h:inputText id="to" size="10" required="true"
+              value="#{reportHandler.to}">
+             <f:convertDateTime dateStyle="short" />
+             <my:validateLater than="from" />
+            </h:inputText>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <h:message for="from" />
+          </td>
+          <td colspan="2">
+            <h:message for="to" />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td valign="bottom">
+            <h:outputText value="#{labels.statusLabel}" />
+          </td>
+          <td>
+            <h:selectManyCheckbox value="#{reportHandler.status}">
+              <f:selectItem itemValue="1" itemLabel="#{labels.Open}" />
+              <f:selectItem itemValue="2" itemLabel="#{labels.Submitted}" />
+              <f:selectItem itemValue="3" itemLabel="#{labels.Accepted}" />
+              <f:selectItem itemValue="4" itemLabel="#{labels.Rejected}" />
+            </h:selectManyCheckbox>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h:commandButton value="#{labels.filterButtonLabel}" />
+    </td>
+  </tr>
+</table>

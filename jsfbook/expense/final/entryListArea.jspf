@@ -1,0 +1,49 @@
+<h:dataTable value="#{reportHandler.reportEntriesModel}"
+  var="entry" styleClass="tablebg" width="100%" footerClass="right">
+  <h:column>
+    <f:facet name="header">
+      <h:outputText value="#{labels.dateHeader}" />
+    </f:facet>
+    <h:inputText size="10" required="true" value="#{entry.date}"
+      disabled="#{reportHandler.editDisabled}" styleClass="right">
+      <f:convertDateTime  dateStyle="short" />
+    </h:inputText>
+    <f:facet name="footer">
+      <h:outputText value="#{labels.totalLabel}" />
+    </f:facet>
+  </h:column>
+  <h:column>
+    <f:facet name="header">
+      <h:outputText value="#{labels.typeHeader}" />
+    </f:facet>
+    <h:selectOneMenu id="type" required="true" value="#{entry.type}"
+      disabled="#{reportHandler.editDisabled}">
+      <f:selectItems value="#{entryHandler.i18nChoices}"/>
+    </h:selectOneMenu>
+  </h:column>
+  <h:column>
+    <f:facet name="header">
+      <h:outputText value="#{labels.amountHeader}" />
+    </f:facet>
+    <h:inputText size="10" required="true" value="#{entry.amount}"
+      disabled="#{reportHandler.editDisabled}" styleClass="right">
+      <f:convertNumber pattern="#,##0.00" />
+      <f:validateDoubleRange minimum="1"/>
+    </h:inputText>
+    <f:facet name="footer">
+      <h:outputText value="#{reportHandler.currentReport.total}">
+        <f:convertNumber pattern="#,##0.00" />
+      </h:outputText>
+    </f:facet>
+  </h:column>
+  <h:column>
+    <h:commandButton action="#{reportHandler.removeEntry}" 
+      value="#{labels.deleteButtonLabel}"
+      disabled="#{reportHandler.editDisabled}" />
+  </h:column>
+  <h:column>
+    <h:commandButton action="#{reportHandler.updateEntry}" 
+      value="#{labels.updateButtonLabel}"
+      disabled="#{reportHandler.editDisabled}" />
+  </h:column>
+</h:dataTable>

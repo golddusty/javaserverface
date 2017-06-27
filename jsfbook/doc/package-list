@@ -1,0 +1,15 @@
+com.mycompany.beans
+com.mycompany.expense
+com.mycompany.jsf.component
+com.mycompany.jsf.event
+com.mycompany.jsf.model
+com.mycompany.jsf.pl
+com.mycompany.jsf.renderer
+com.mycompany.jsf.servlets
+com.mycompany.jsf.taglib
+com.mycompany.jsf.validator
+com.mycompany.messages
+com.mycompany.newsservice.handlers
+com.mycompany.newsservice.models
+com.mycompany.newsservice.views
+com.mycompany.poll

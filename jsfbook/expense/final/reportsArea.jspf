@@ -1,0 +1,20 @@
+<table class="box" width="100%">
+  <tr>
+    <td>
+      <h:outputText value="#{labels.reportsAreaTitle}"
+        styleClass="smalltitle" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Filter criteria -->
+      <%@ include file="filterArea.jspf" %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <!-- Report List -->
+      <%@ include file="reportListArea.jspf" %>
+    </td>
+  </tr>
+</table>
